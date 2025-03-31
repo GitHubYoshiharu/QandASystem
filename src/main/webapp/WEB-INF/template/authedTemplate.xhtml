@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<!-- IEの互換性表示を防止する -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<!-- bootstrap ライブラリ読み込み -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+		crossorigin="anonymous" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"
+		integrity="sha384-Pn+PczAsODRZ2PiGg0IheRROpP7lXO1NTIjiPo6cca8TliBvaeil42fobhzvZd74"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+	<!-- ナビゲーションバーのスタイルシート -->
+	<h:outputStylesheet library="css" name="navigationbar.css" />
+	<!-- テンプレートのレイアウトを定義するスタイルシート -->
+	<h:outputStylesheet library="css" name="layout.css" />
+
+	<!-- テンプレートで各ページのcssを読み込まなきゃ、スタイルが適応されないらしいっすよ？（理解不能） -->
+	<h:outputStylesheet library="css" name="passwordChange.css" />
+	<h:outputStylesheet library="css" name="questionPost.css" />
+	<h:outputStylesheet library="css" name="questionSearch.css" />
+	<h:outputStylesheet library="css" name="questionView.css" />
+	<h:outputStylesheet library="css" name="mypage.css" />
+	<h:outputStylesheet library="css" name="exerciseScoreRegister.css" />
+	<h:outputStylesheet library="css" name="tagListEdit.css" />
+	<title><ui:insert name="title" /></title>
+</h:head>
+<h:body>
+	<div id="top">
+		<ui:insert name="top">
+			<ui:include src="/WEB-INF/header/headerMenu.xhtml" />
+		</ui:insert>
+	</div>
+	<div id="content">
+		<ui:insert name="content" />
+	</div>
+</h:body>
+</html>

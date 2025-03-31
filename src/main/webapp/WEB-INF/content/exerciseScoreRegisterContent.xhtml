@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition>
+	  <!-- 演習点を登録する演習回の検索 -->
+	  <div class="page-header">
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-md-6">
+	          <h4>演習回検索</h4>
+	          <h:form class="form-inline">
+	            <h:selectOneListbox size="1" value="#{exerciseScoreRegisterBb.selectedBeginYear}" class="form-control">
+			          	<f:selectItems value="#{exerciseScoreRegisterBb.beginYearItems}" />
+			    </h:selectOneListbox>
+	            <h:selectOneListbox size="1" value="#{exerciseScoreRegisterBb.selectedCourseName}" class="form-control">
+			          	<f:selectItems value="#{exerciseScoreRegisterBb.courseNameItems}" />
+			    </h:selectOneListbox>
+	            <h:selectOneListbox size="1" value="#{exerciseScoreRegisterBb.selectedKyoinName}" class="form-control">
+			          	<f:selectItems value="#{exerciseScoreRegisterBb.kyoinNameItems}" />
+			    </h:selectOneListbox>
+	            <h:selectOneListbox size="1" value="#{exerciseScoreRegisterBb.selectedExerciseNum}" class="form-control">
+			          	<f:selectItems value="#{exerciseScoreRegisterBb.exerciseNumItems}" />
+			    </h:selectOneListbox>
+	            <h:commandButton type="submit" class="btn btn-default" action="#{exerciseScoreRegisterBb.exerciseNumSearch()}" value="検索" />
+	          </h:form>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+	  <!-- 演習履修学生一覧表 -->
+	  <div class="container-fluid">
+	    <h4>履修学生</h4>
+	    <div class="table-responsive col-md-8">
+	      <table class="table table-hover table-bordered" style="table-layout:fixed;">
+	      	<thead>
+	      		<tr>
+	      			<th style="width:100px;">学籍番号</th>
+	            <th>演習点登録フォーム</th>
+	      		</tr>
+	      	</thead>
+	      	<tbody>
+	      		<ui:repeat value="#{exerciseScoreRegisterBb.searchedExerciseNum.exercise.users}" var="student" varStatus="statStudent">
+		      		<tr>
+		      			<th>#{student.userId}</th>
+			            <td>
+			              <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#collapse#{statStudent.index}">
+			            		表示<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+			            	</button>
+			              <div class="collapse" id="collapse#{statStudent.index}">
+			              	<div class="well">
+			                  <table class="table table-bordered table-condensed">
+			                    <thead>
+			                      <tr>
+			                        <th>問題番号</th>
+			                        <th>最終更新日</th>
+			                        <th>最終更新ユーザ</th>
+			                        <th>フォーム</th>
+			                      </tr>
+			                    </thead>
+			                    <tbody>
+			                      <!-- 一つの設問に関する登録フォーム-->
+			                      <ui:repeat value="#{student.exerciseProblemStudents}" var="problem" varStatus="statProblem">
+				                      <tr>
+				                        <th>Q#{problem.id.exerciseProblemNum}</th>
+				                        <td>
+				                          <h:outputText rendered="#{!(problem.lastModifiedTime == null)}"  value="#{problem.lastModifiedTime}" />
+				                          <h:outputText rendered="#{problem.lastModifiedTime == null}" value="未登録" />
+				                        </td>
+				                        <td>
+				                        	<h:outputText rendered="#{!(problem.user.userId == null)}"  value="#{problem.user.userId}" />
+				                            <h:outputText rendered="#{problem.user.userId == null}" value="未登録" />
+				                        </td>
+				                        <td>
+				                          <h:form class="form-inline">
+				                            <h:inputText value="#{problem.score}" size="2" class="form-control" />
+				                            <h:selectOneListbox size="1" value="#{problem.tagListComponentListIndex}" class="form-control">
+										          	<f:selectItems value="#{exerciseScoreRegisterBb.taglistItems}" />
+										    </h:selectOneListbox>
+				                            <h:selectOneListbox size="1" class="form-control">
+										          	<f:selectItems value="#{problem.registeredTagItems}" />
+										    </h:selectOneListbox>
+				                            <h:commandButton type="submit" class="btn btn-default" action="#{exerciseScoreRegisterBb.addTag(statProblem.index,statStudent.index)}" value="タグ追加">
+				                            	<f:ajax execute="@form" render="@form" />
+				                            </h:commandButton>
+				                            <h:commandButton type="submit" class="btn btn-default" action="#{exerciseScoreRegisterBb.resetTag(statProblem.index,statStudent.index)}" value="タグ取消">
+				                            	<f:ajax execute="@form" render="@form" />
+				                            </h:commandButton>
+				                            <h:commandButton type="submit" class="btn btn-default" action="#{exerciseScoreRegisterBb.registerExerciseInfo(statProblem.index,statStudent.index)}" value="登録">
+				                            	<f:ajax execute="@form" render="@form" />
+				                            </h:commandButton>
+				                          </h:form>
+				                        </td>
+				                      </tr>
+			                      </ui:repeat>
+			                    </tbody>
+			                  </table>
+			              	</div>
+			              </div>
+			            </td>
+		      		</tr>
+	      		</ui:repeat>
+	      	</tbody>
+	      </table>
+	    </div>
+	  </div>
+	</ui:composition>
+</h:body>
+</html>

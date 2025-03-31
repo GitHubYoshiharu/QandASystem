@@ -1,0 +1,146 @@
+.question-title {
+    font-size: x-large;
+    margin-bottom: 15px;
+}
+
+.glyphicon {
+  margin-right: 3px;
+}
+
+.question-status {
+  display: flex;
+}
+
+.question-status-number {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.question-status li {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: solid 1px #ccc;
+  list-style:none;
+}
+
+.isSolved {
+  width: 60px;
+}
+
+.question-info-num {
+  font-weight: bold;
+  font-size: large;
+  margin-left: 3px;
+}
+
+.tag-list {
+  display: flex;
+}
+
+.tag-list li {
+  padding-right: 8px;
+  list-style: none;
+}
+
+.question-info {
+  margin-bottom: 15px;
+}
+
+.question-content {
+  padding-bottom: 50px;
+}
+
+.question-group {
+  padding-bottom: 30px;
+  border-bottom: solid 1px #ccc;
+}
+
+.answer-post-content {
+  margin-bottom: 10px;
+}
+
+.answer-post-group {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-bottom: solid 1px #ccc;
+}
+
+.answer-list-group {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.answer-group {
+  padding-bottom: 30px;
+  border-bottom: solid 1px #ccc;
+}
+
+.answer-num-group {
+  font-size: x-large;
+  border-bottom: solid 1px #ccc;
+}
+
+.comment-num-group {
+	padding-top: 30px;
+	font-size: large;
+  	border-bottom: solid 1px #ccc;
+}
+
+.answer-num {
+  color: red;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.best-answer {
+	color: orange;
+	font-size: large;
+	padding-left: 5px;
+    padding-right: 5px;
+}
+
+.comment-num {
+	color: red;
+  	padding-left: 5px;
+  	padding-right: 5px;
+}
+
+.answer-content {
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+.comment-content {
+	padding-top: 30px;
+  	padding-bottom: 50px;
+}
+
+.comment-post-content {
+  margin-bottom: 10px;
+}
+
+.comment-post-group {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.answer-status {
+  padding-top: 10px;
+  border-bottom: solid 1px #ccc;
+  display: inline-block;
+}
+
+.button-right-margin {
+	margin-right: 0px;
+}
+
+.button-bottom-margin {
+	margin-bottom: 30px;
+}
+
+.comment-border {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-bottom: solid 1px #ccc;
+}

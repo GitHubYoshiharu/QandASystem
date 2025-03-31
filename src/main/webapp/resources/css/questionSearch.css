@@ -1,0 +1,74 @@
+.question-search-word {
+  margin-bottom: 30px;
+}
+
+.question-narrowing-option-content {
+  padding-bottom: 10px;
+}
+
+.question-sorting-option-content {
+	padding-top: 20px;
+}
+
+.question-num-group {
+  font-size: x-large;
+  border-bottom: solid 1px #ccc;
+}
+
+.question-num {
+  color: red;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.tag-list {
+  display: flex;
+}
+
+.tag-list li {
+  padding-right: 8px;
+  list-style: none;
+}
+
+.question-list-group {
+
+}
+
+.question-group {
+  border-bottom: solid 1px #ccc;
+}
+
+.question-title {
+  font-size: large;
+}
+
+.question-content {
+
+}
+
+.question-status {
+  display: flex;
+}
+
+.question-status-number {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.question-status li {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: solid 1px #ccc;
+  list-style:none;
+}
+
+.isSolved {
+  width: 60px;
+}
+
+.question-row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}

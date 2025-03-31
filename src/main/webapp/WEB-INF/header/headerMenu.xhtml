@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:body>
+	<ui:composition>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarGrobal">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<h:link class="navbar-brand" outcome="/authed/questionSearch.xhtml">Q＆Aシステム</h:link>
+				</div>
+				<div class="collapse navbar-collapse" id="navbarGrobal">
+				  <h:form>
+					<ul class="nav navbar-nav">
+						<li><h:link outcome="/authed/questionSearch.xhtml">質問検索</h:link></li>
+						<li><h:link outcome="/authed/questionPost.xhtml">質問投稿</h:link></li>
+						<li><h:link outcome="/admin/exerciseScoreRegister.xhtml">演習点登録</h:link></li>
+						<li><h:link outcome="/admin/tagListEdit.xhtml">タグリスト編集</h:link></li>
+						<li><h:link outcome="/authed/mypage.xhtml">マイページ</h:link></li>
+						<li><h:link outcome="/authed/passwordChange.xhtml">パスワード変更</h:link></li>
+						<li><h:commandLink action="#{logoutBb.logout()}">ログアウト</h:commandLink></li>
+					</ul>
+			      </h:form>
+				</div>
+			</div>
+		</nav>
+	</ui:composition>
+</h:body>
+</html>

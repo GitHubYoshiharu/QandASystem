@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+  <ui:composition>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+      <h4>質問投稿</h4>
+        <div class="panel panel-default">
+          <div class="panel-heading">タグ編集</div>
+          <div class="panel-body">
+            <h:form>
+	            <div class="input-group inputComp">
+	              <h:panelGroup id="tagList">
+		              <ui:repeat value="#{questionPostBb.tagList}" var="tag" varStatus="stat">
+			              <h:panelGroup id="tag">
+			                <span class="input-group-addon">#{tag}</span>
+			                <span class="input-group-btn">
+			                  <h:commandButton type="button" action="#{questionPostBb.deleteTag(stat.index)}" class="btn btn-default" value="削除">
+			                  	<f:ajax execute="@this" render="@form" />
+			                  </h:commandButton>
+			                </span>
+			              </h:panelGroup>
+		              </ui:repeat>
+	              </h:panelGroup>
+	            </div>
+	            <div class="input-group inputComp">
+	              <span class="input-group-addon">タグ追加</span>
+	              <h:inputText value="#{questionPostBb.spaceDividedTag}" class="form-control" id="addTag" />
+	              <span class="input-group-btn">
+	                <h:commandButton type="button" action="#{questionPostBb.addTag()}" class="btn btn-default" value="追加">
+	                	<f:ajax execute="addTag" render="@form" />
+	                </h:commandButton>
+	              </span>
+	            </div>
+            </h:form>
+          </div>
+        </div>
+
+        <h:form>
+          <div class="row exercise-padding">
+	          <div class="col-md-5">
+		            <h:selectOneListbox size="1" value="#{questionPostBb.exerciseId}" class="form-control">
+		                <f:selectItem itemLabel="--講義名--" noSelectionOption="true" />
+			          	<f:selectItems value="#{questionPostBb.courseItems}" />
+			        </h:selectOneListbox>
+	            </div>
+	            <div class="col-md-7">
+		            <div class="input-group">
+			          <span class="input-group-addon">演習番号</span>
+			          <h:inputText value="#{questionPostBb.exNum}" class="form-control" />
+			          <span class="input-group-addon">問題番号</span>
+			          <h:inputText value="#{questionPostBb.proNum}" class="form-control" />
+			        </div>
+	            </div>
+          </div>
+
+	        <div class="input-group">
+	          <span class="input-group-addon">タイトル</span>
+	          <h:inputText value="#{questionPostBb.title}" class="form-control" />
+	        </div>
+	        <div class="input-group inputComp">
+	          <span class="input-group-addon">質問本文</span>
+	          <h:inputTextarea value="#{questionPostBb.content}" class="form-control" rows="10"></h:inputTextarea>
+	        </div>
+	        <h:commandButton value="投稿" action="#{questionPostBb.questionPost()}" class="btn btn-default col-md-4 col-md-offset-8" />
+        </h:form>
+      </div>
+      <h:messages />
+    </div>
+  </div>
+  </ui:composition>
+
+</h:body>
+</html>

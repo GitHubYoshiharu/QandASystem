@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:body>
+  <ui:composition>
+	  <!-- タブメニュー -->
+	  <ul class="nav nav-tabs">
+	    <li class="active"><a href="#notification-list" data-toggle="tab">返信通知</a></li>
+	    <li><a href="#post-list" data-toggle="tab">投稿</a></li>
+	    <li><a href="#favorite-list" data-toggle="tab">お気に入り</a></li>
+	    <li><a href="#solved-list" data-toggle="tab">質問解決</a></li>
+	  </ul>
+
+	  <!-- タブ内容 -->
+	  <div class="tab-content col-md-6">
+	    <!-- 返信通知 -->
+	    <div class="tab-pane active" id="notification-list">
+	      <div class="list-group">
+	      	<ui:repeat var="replyNotification" value="#{mypageBb.viewReplyNotificationList}">
+		      	<h:link class="notification list-group-item" outcome="/authed/questionView.xhtml">
+		      	  <f:param name="questionId" value="#{replyNotification.questionId}" />
+		          <div class="notification-title list-group-item-heading">
+		            <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span><span class="notification-title-content">#{replyNotification.message}</span>
+		          </div>
+		          <div class="notification-content list-group-item-text">
+		                #{replyNotification.content}
+		          </div>
+		        </h:link>
+	      	</ui:repeat>
+	      </div>
+	    </div>
+	    <!-- 投稿 -->
+	    <div class="tab-pane" id="post-list">
+	      <div class="list-group">
+	        <ui:repeat var="postHistory" value="#{mypageBb.viewPostHistoryList}">
+		        <h:link class="post list-group-item" outcome="/authed/questionView.xhtml">
+		          <f:param name="questionId" value="#{postHistory.questionId}" />
+		          <div class="post-title list-group-item-heading">
+		            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span><span class="post-title-content">#{postHistory.message}</span>
+		          </div>
+		          <div class="post-content list-group-item-text">
+		            #{postHistory.content}
+		          </div>
+		        </h:link>
+	        </ui:repeat>
+	      </div>
+	    </div>
+	    <!-- お気に入り -->
+	    <div class="tab-pane" id="favorite-list">
+	      <div class="list-group">
+	        <ui:repeat var="favHistory" value="#{mypageBb.viewFavHistoryList}">
+		        <h:link class="favorite list-group-item" outcome="/authed/questionView.xhtml">
+		          <f:param name="questionId" value="#{favHistory.questionId}" />
+		          <div class="favorite-title list-group-item-heading">
+		            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span><span class="favorite-title-content">#{favHistory.message}</span>
+		          </div>
+		          <div class="favorite-content list-group-item-text">
+		            #{favHistory.content}
+		          </div>
+		        </h:link>
+	        </ui:repeat>
+	      </div>
+	    </div>
+	    <!-- 質問解決通知 -->
+	    <div class="tab-pane" id="solved-list">
+	      <div class="list-group">
+	        <ui:repeat var="solvedHistory" value="#{mypageBb.viewSolvedHistoryList}">
+		        <h:link class="solved list-group-item" outcome="/authed/questionView.xhtml">
+		          <f:param name="questionId" value="#{solvedHistory.questionId}" />
+		          <div class="solved-title list-group-item-heading">
+		            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="solved-title-content">#{solvedHistory.message}</span>
+		          </div>
+		          <div class="solved-content list-group-item-text">
+		            #{solvedHistory.content}
+		          </div>
+		        </h:link>
+	        </ui:repeat>
+	      </div>
+	    </div>
+	  </div>
+  </ui:composition>
+</h:body>
+</html>

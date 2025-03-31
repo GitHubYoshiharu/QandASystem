@@ -1,0 +1,75 @@
+#notification-list {
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+.notification {
+  padding-bottom: 10px;
+  border-bottom: solid 1px #ccc;
+}
+.notification-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.notification-title-content {
+  font-size: 1.2em;
+}
+.notification-content {
+  padding-bottom: 10px;
+}
+
+#post-list {
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+.post {
+  padding-bottom: 10px;
+  border-bottom: solid 1px #ccc;
+}
+.post-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.post-title-content {
+  font-size: 1.2em;
+}
+.post-content {
+  padding-bottom: 10px;
+}
+
+#favorite-list {
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+.favorite {
+  padding-bottom: 10px;
+  border-bottom: solid 1px #ccc;
+}
+.favorite-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.favorite-title-content {
+  font-size: 1.2em;
+}
+.favorite-content {
+  padding-bottom: 10px;
+}
+
+#solved-list {
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+.solved {
+  padding-bottom: 10px;
+  border-bottom: solid 1px #ccc;
+}
+.solved-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.solved-title-content {
+  font-size: 1.2em;
+}
+.solved-content {
+  padding-bottom: 10px;
+}

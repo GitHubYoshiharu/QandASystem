@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+  <ui:composition>
+  <!-- 検索オプション指定 -->
+  <div class="page-header">
+    <div class="container-fluid">
+    <h:form>
+      <div class="row">
+        <div class="question-search-word col-md-5 col-md-offset-1">
+          <h4>質問検索</h4>
+	          <div class="input-group">
+	            <h:inputText value="#{questionSearchBb.spaceDividedSearchTag}" class="form-control" />
+	            <span class="input-group-btn">
+	              <h:commandButton type="submit" class="btn btn-default" action="#{questionSearchBb.questionSearch()}" value="検索" />
+	              <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#question-search-option"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>検索オプション</button>
+	            </span>
+	          </div>
+        </div>
+      </div>
+
+      <!-- 検索オプション -->
+      <div class="collapse" id="question-search-option">
+        <div class="panel panel-default col-md-10 col-md-offset-1">
+          <div class="panel-body">
+            <div class="question-narrowing-option-group col-md-8">
+              <div class="question-narrowing-option-content row">
+                <label class="col-md-3">解決未解決区分</label>
+                <div class="col-md-4">
+                	<h:selectOneRadio value="#{questionSearchBb.solvedDivision}">
+                		<f:selectItem itemValue="1" itemLabel="未解決" />
+                		<f:selectItem itemValue="2" itemLabel="解決" />
+                		<f:selectItem itemValue="3" itemLabel="全て" />
+                  	</h:selectOneRadio>
+                </div>
+              </div>
+              <div class="question-narrowing-option-content row">
+                <label class="col-md-3">演習・演習問題指定</label>
+                <div class="input-group inputComp col-md-4">
+		          <h:selectOneListbox size="1" value="#{questionSearchBb.exerciseId}" class="form-control">
+		            <f:selectItem itemLabel="--講義名--" noSelectionOption="true" />
+		          	<f:selectItems value="#{questionSearchBb.courseItems}" />
+		          </h:selectOneListbox>
+		        </div>
+              </div>
+              <div class="question-narrowing-option-content row">
+	              <div class="input-group ex-num-specification col-md-4 col-md-offset-3">
+	                  <span class="input-group-addon">演習番号</span>
+	                  <h:inputText value="#{questionSearchBb.exNum}" class="form-control" />
+	                  <span class="input-group-addon">問題番号</span>
+	                  <h:inputText value="#{questionSearchBb.proNum}" class="form-control" />
+	                </div>
+              </div>
+              <div class="question-sorting-option-content row">
+                <label class="col-md-3">ソート条件指定</label>
+                <div class="col-md-4">
+                  <h:selectOneMenu value="#{questionSearchBb.sortType}" class="form-control">
+                  	<f:selectItem itemValue="1" itemLabel="質問投稿年月日順" />
+                  	<f:selectItem itemValue="2" itemLabel="質問閲覧数順" />
+                  	<f:selectItem itemValue="3" itemLabel="質問お気に入り数順" />
+                  	<f:selectItem itemValue="4" itemLabel="回答数順" />
+                  </h:selectOneMenu>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     </h:form>
+    </div>
+  </div>
+
+  <!-- 質問リスト -->
+  <div class="container-fluid">
+    <div class="question-list-group col-md-7 col-md-offset-1">
+      <div class="question-num-group row">
+        検索結果<span class="question-num">#{questionSearchBb.hitQuestionList.size()}</span>件
+      </div>
+      <!-- 質問 -->
+      <ui:repeat value="#{questionSearchBb.hitQuestionList}" var="question" varStatus="stat">
+	      <div class="question-group">
+	        <div class="question-row row">
+	          <h:outputLabel class="isSolved label label-danger col-md-1" rendered="#{question.hasSolved}">解決</h:outputLabel>
+	          <h:outputLabel class="isSolved label label-default col-md-1" rendered="#{!question.hasSolved}">未解決</h:outputLabel>
+	          <h:link class="question-title col-md-10" outcome="/authed/questionView.xhtml">#{question.title}
+	          	<f:param name="questionId" value="#{question.questionId}" />
+	          </h:link>
+	        </div>
+	        <div class="question-row row">
+	          <div class="question-content col-md-10 col-md-offset-1">#{question.content}</div>
+	        </div>
+	        <div class="question-row row">
+	          <ul class="question-status col-md-4 col-md-offset-1">
+	            <li><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span><span class="question-status-number">#{question.questionFavUsers.size()}</span></li>
+	            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span><span class="question-status-number">#{question.questionViewUsers.size()}</span></li>
+	            <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span><span class="question-status-number">#{question.answers.size()}</span></li>
+	          </ul>
+	          <ul class="tag-list col-md-6 col-md-offset-1">
+		          <ui:repeat value="#{question.tags}" var="tag" varStatus="stat">
+		          	<li><span class="label label-success">#{tag.tagName}</span></li>
+		          </ui:repeat>
+	          </ul>
+	        </div>
+	      </div>
+      </ui:repeat>
+    </div>
+  </div>
+  </ui:composition>
+</h:body>
+</html>

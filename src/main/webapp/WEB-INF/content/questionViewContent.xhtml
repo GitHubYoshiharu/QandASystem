@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+  <ui:composition>
+	  <!-- 質問ヘッダ情報 -->
+	  <div class="page-header">
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="question-title col-md-5 col-md-offset-1">#{questionViewBb.viewQuestion.title}</div>
+	        <div class="col-md-5 col-md-offset-1">
+	          <ul class="question-status">
+	            <li><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>お気に入り<h:panelGroup class="question-status-number" id="question-fav-num">#{questionViewBb.viewQuestion.questionFavUsers.size()}</h:panelGroup></li>
+	            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>閲覧<h:panelGroup class="question-status-number">#{questionViewBb.viewQuestion.questionViewUsers.size()}</h:panelGroup></li>
+	            <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>回答<h:panelGroup class="question-status-number" id="question-answer-num">#{questionViewBb.viewQuestion.answers.size()}</h:panelGroup></li>
+	          </ul>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="question-info col-md-5 col-md-offset-1">
+	          <h:outputLabel class="isSolved label label-danger col-md-1" rendered="#{questionViewBb.viewQuestion.hasSolved}">解決</h:outputLabel>
+		      <h:outputLabel class="isSolved label label-default col-md-1" rendered="#{!questionViewBb.viewQuestion.hasSolved}">未解決</h:outputLabel>
+	          <div class="col-md-5"><small><span class="glyphicon glyphicon-time" aria-hidden="true"></span>#{questionViewBb.viewQuestion.postTime}</small></div>
+	          <div class="col-md-3"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{questionViewBb.viewQuestion.user.userId}</div>
+	          <div class="col-md-4 question-info-num">
+	            <h:outputLabel rendered="#{!(questionViewBb.viewQuestion.exerciseNum == null)}">演習第#{questionViewBb.viewQuestion.exerciseNum.id.exerciseNum}回　問題#{questionViewBb.viewQuestion.exerciseProblem.id.exerciseProblemNum}</h:outputLabel>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="col-md-5 col-md-offset-1">
+	          <ul class="tag-list">
+	            <ui:repeat value="#{questionViewBb.viewQuestion.tags}" var="tag" varStatus="stat">
+			          	<li><span class="label label-success">#{tag.tagName}</span></li>
+			    </ui:repeat>
+	          </ul>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+	  <!-- 質問本文 -->
+	  <div class="container-fluid">
+	    <div class="question-group col-md-5 col-md-offset-1">
+	      <div class="row">
+	        <div class="question-content">
+	          <pre>#{questionViewBb.viewQuestion.content}</pre>
+	        </div>
+	      </div>
+	      <div class="row">
+        	<h:form>
+		        <h:commandButton value="解決" action="#{questionViewBb.solvedRegist()}" class="button-right-margin btn btn-default col-md-3" rendered="#{!questionViewBb.viewQuestion.hasSolved and questionViewBb.questionPostUser}">
+			        <f:ajax execute="@this" render="@form" />
+		        </h:commandButton>
+		        <h:commandButton value="解決済み" class="button-right-margin btn btn-default col-md-3" rendered="#{questionViewBb.viewQuestion.hasSolved and questionViewBb.questionPostUser}" disabled="true" />
+		        <h:commandButton value="お気に入り" action="#{questionViewBb.questionFavRegist()}" class="button-right-margin btn btn-default col-md-3" rendered="#{!questionViewBb.hasRegistedQuestionFav and !questionViewBb.questionPostUser}">
+			        <f:ajax execute="@this" render="@form question-fav-num" />
+		        </h:commandButton>
+		        <h:commandButton value="お気に入り登録済み" class="button-right-margin btn btn-default col-md-3" rendered="#{questionViewBb.hasRegistedQuestionFav and !questionViewBb.questionPostUser}" disabled="true" />
+	            <button type="button" class="btn btn-default col-md-3" data-toggle="collapse" data-target="#question-content-comment"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>コメント投稿</button>
+	        </h:form>
+	      </div>
+	      <!-- 質問対象コメントリスト -->
+	      <div class="container-fluid">
+	      	<div class="comment-num-group row">
+	        	コメント<h:panelGroup class="comment-num" id="question-comment-num">#{questionViewBb.viewQuestion.questionTargetComments.size()}</h:panelGroup>件
+	      	</div>
+	      	<h:panelGroup id="question-comment-list">
+	      		<ui:repeat var="comment" value="#{questionViewBb.viewQuestion.questionTargetComments}" varStatus="stat">
+	      		  <div class="comment-border">
+		      		  <div class="row">
+			        		<div class="comment-content">
+			            		<pre>#{comment.content}</pre>
+			          		</div>
+			        	</div>
+			        	<div class="row">
+			        		<div class="col-md-4"><small><span class="glyphicon glyphicon-time" aria-hidden="true"></span>#{comment.postTime}</small></div>
+			          		<div class="col-md-3"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{comment.postUserId}</div>
+			        	</div>
+	      		  </div>
+	      		</ui:repeat>
+	      	</h:panelGroup>
+	      </div>
+	      <!-- 質問対象コメント投稿フォーム -->
+	      <div class="collapse" id="question-content-comment">
+	          <div class="container-fluid">
+	            <div class="comment-post-group">
+	              <div class="row">
+	                <h4>コメント投稿</h4>
+	                <h:form>
+		                <div class="comment-post-content input-group">
+		                  <span class="input-group-addon">コメント本文</span>
+		                  <h:inputTextarea value="#{questionViewBb.postedQuestionComment}" class="form-control" rows="10"></h:inputTextarea>
+		                </div>
+		                <h:commandButton value="投稿" action="#{questionViewBb.questionTargetCommentPost()}" type="button" class="btn btn-default col-md-4 col-md-offset-8">
+		                  <f:ajax execute="@form" render="@form question-comment-num question-comment-list" />
+		                </h:commandButton>
+	                </h:form>
+	              </div>
+	            </div>
+	          </div>
+	      </div>
+	    </div>
+	  </div>
+
+	  <!-- 回答投稿フォーム -->
+	  <div class="container-fluid">
+	    <h:panelGroup class="answer-post-group col-md-5 col-md-offset-1" rendered="#{!questionViewBb.questionPostUser and !questionViewBb.hasPostedAnswer}">
+	      <div class="row">
+	        <h4>回答投稿</h4>
+	        <h:form>
+		        <div class="answer-post-content input-group">
+		          <span class="input-group-addon">回答本文</span>
+		          <h:inputTextarea value="#{questionViewBb.postedAnswer}" class="form-control" rows="10"></h:inputTextarea>
+		        </div>
+		        <h:commandButton value="投稿" action="#{questionViewBb.answerPost()}" type="button" class="btn btn-default col-md-4 col-md-offset-8">
+		          <f:ajax execute="@form" render="@all" />
+		        </h:commandButton>
+	        </h:form>
+	      </div>
+	    </h:panelGroup>
+	  </div>
+
+	  <!-- 回答リスト -->
+	  <div class="container-fluid">
+	    <div class="answer-list-group col-md-5 col-md-offset-1">
+	      <div class="answer-num-group row">
+	        回答<h:panelGroup class="answer-num" id="answer-num">#{questionViewBb.viewQuestion.answers.size()}</h:panelGroup>件
+	      </div>
+	      <!-- 回答 -->
+	      <h:panelGroup id="answer-list">
+	      	<ui:repeat var="answer" value="#{questionViewBb.viewQuestion.answers}" varStatus="stat">
+		      <div class="answer-group">
+		        <div class="answer-status row">
+		          <h:outputText class="best-answer" rendered="#{questionViewBb.viewQuestion.bestAnswerId == answer.answerId}" value="ベストアンサー" />
+		            投票<span class="question-status-number col-md-offset-1">#{answer.answerVoteUsers.size()}</span>
+		        </div>
+		        <div class="row">
+		          <div class="answer-content">
+		            <pre>#{answer.content}</pre>
+		          </div>
+		        </div>
+		        <div class="row button-bottom-margin">
+		          <h:form>
+			        <h:commandButton value="投票" action="#{questionViewBb.answerVoteRegist(stat.index)}" class="button-right-margin btn btn-default col-md-3" rendered="#{!(questionViewBb.hasRegistedAnswerVote.get(stat.index)) and !(questionViewBb.answerPostUser.get(stat.index)) and !questionViewBb.questionPostUser}">
+				        <f:ajax execute="@this" render="@form" />
+			        </h:commandButton>
+			        <h:commandButton value="投票済み" class="button-right-margin btn btn-default col-md-3" rendered="#{questionViewBb.hasRegistedAnswerVote.get(stat.index) and questionViewBb.answerPostUser.get(stat.index) and !questionViewBb.questionPostUser}" disabled="true" />
+			        <h:commandButton value="BA登録" action="#{questionViewBb.bestAnswerRegist(stat.index)}" class="button-right-margin btn btn-default col-md-3" rendered="#{questionViewBb.questionPostUser and !questionViewBb.viewQuestion.hasSolved}">
+				        <f:ajax execute="@this" render="@form" />
+			        </h:commandButton>
+			        <h:commandButton value="BA登録" class="button-right-margin btn btn-default col-md-3" rendered="#{!questionViewBb.questionPostUser or questionViewBb.viewQuestion.hasSolved}" disabled="true" />
+	                <button type="button" class="btn btn-default col-md-3" data-toggle="collapse" data-target="#answer-content-comment#{stat.index}"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>コメント投稿</button>
+	              </h:form>
+		        </div>
+		        <div class="row">
+			        <div class="col-md-4"><small><span class="glyphicon glyphicon-time" aria-hidden="true"></span>#{answer.postTime}</small></div>
+			        <div class="col-md-3"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{answer.user.userId}</div>
+		        </div>
+		        <!-- 回答対象コメントリスト -->
+		        <div class="container-fluid">
+		        	<div class="comment-num-group row">
+	        			コメント<h:panelGroup class="comment-num" id="answer-comment-num#{stat.index}">#{answer.answerTargetComments.size()}</h:panelGroup>件
+	      			</div>
+	      			<h:panelGroup id="answer-comment-list#{stat.index}">
+	      				<ui:repeat var="comment" value="#{answer.answerTargetComments}">
+		      				<div class="comment-border">
+			      				<div class="row">
+			        				<div class="comment-content">
+			            				<pre>#{comment.content}</pre>
+			          				</div>
+			        			</div>
+			        			<div class="row">
+			        				<div class="col-md-4"><small><span class="glyphicon glyphicon-time" aria-hidden="true"></span>#{comment.postTime}</small></div>
+			          				<div class="col-md-3"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{comment.postUserId}</div>
+			        			</div>
+		      				</div>
+	      				</ui:repeat>
+	      			</h:panelGroup>
+	      		</div>
+	      		<!-- 回答対象コメント投稿フォーム -->
+		        <div class="collapse" id="answer-content-comment#{stat.index}">
+		            <div class="container-fluid">
+		              <div class="comment-post-group">
+		                <div class="row">
+		                  <h4>コメント投稿</h4>
+		                  <h:form>
+			                  <div class="comment-post-content input-group">
+			                    <span class="input-group-addon">コメント本文</span>
+			                    <h:inputTextarea value="#{questionViewBb.postedAnswerComment}" class="form-control" rows="10"></h:inputTextarea>
+			                  </div>
+			                  <h:commandButton action="#{questionViewBb.answerTargetCommentPost(stat.index)}" value="投稿" type="button" class="btn btn-default col-md-4 col-md-offset-8">
+			                  	<!-- ui:repeatの入れ子では、外側のui:repeatを再描画しなければならないらしい -->
+			                    <f:ajax execute="@form" render="@form answer-list answer-comment-list#{stat.index} answer-comment-num#{stat.index}" />
+			                  </h:commandButton>
+		                  </h:form>
+		                </div>
+		              </div>
+		            </div>
+		        </div>
+		      </div>
+	        </ui:repeat>
+	      </h:panelGroup>
+	    </div>
+	  </div>
+  </ui:composition>
+</h:body>
+</html>

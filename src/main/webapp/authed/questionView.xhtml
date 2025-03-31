@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition template="/WEB-INF/template/authedTemplate.xhtml">
+		<ui:define name="title">質問閲覧画面</ui:define>
+		<ui:define name="content">
+			<ui:include src="/WEB-INF/content/questionViewContent.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
